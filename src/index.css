@@ -7,6 +7,43 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h3, h4 {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+hr {
+  color: lightblue;
+}
+
+.main-container {
+  padding-top: 1rem;
+  width: 90%;
+  margin: auto;
+}
+
+.note-list-item {
+  margin: 1%;
+  padding: 2%;
+  background-color: lightblue;
+  border: 1% solid transparent;
+  border-radius: 1rem;
+}
+
+.link {
+  float: right;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  line-height: 2;
+}
+
+.link:hover {
+  text-decoration:none;
+  text-shadow: 1px 1px 1px #555;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

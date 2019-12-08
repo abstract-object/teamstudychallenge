@@ -23,17 +23,17 @@ class AllNotes extends Component {
   };
 
   render() {
-    return (<div>
+    return (<section className="main-container">
       {this.state.new && <Redirect to={`/new`}/>}
-      <button onClick={() => this.setState({new: true})}>New note</button>
       <h3>All notes</h3>
+      <span className="link" onClick={() => this.setState({new: true})}>New note</span>
       {Object.keys(this.state.notes).length ? <hr/> : <p>There are currently no notes to display</p>}
       {Object.keys(this.state.notes).reverse().map(id => {
         return (
           <Note key={id} id={id} title={this.state.notes[id]}/>
         );
       })}
-    </div>)
+    </section>)
   }
 };
 

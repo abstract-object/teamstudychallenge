@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Redirect} from 'react-router-dom';
+import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 
 class Note extends Component {
   constructor(props) {
@@ -10,18 +10,17 @@ class Note extends Component {
   }
 
   viewNote = id => {
-    this.setState({redirect: id});
+    this.setState({ redirect: id });
   };
 
-  render(){
-  return (
-    <article>
-      <button onClick={() => this.viewNote(this.props.id)}>
+  render() {
+    return (
+      <article className="note-list-item">
         <h4>{this.props.title}</h4>
-      </button>
-    {this.state.redirect && <Redirect to={`/notes/${this.state.redirect}`}/>}
-    </article>
-  );
+        <span className="link" onClick={() => this.viewNote(this.props.id)}>View</span>
+        {this.state.redirect && <Redirect to={`/notes/${this.state.redirect}`} />}
+      </article>
+    );
   }
 };
 
