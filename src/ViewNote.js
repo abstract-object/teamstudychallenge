@@ -88,7 +88,7 @@ class ViewNote extends Component {
         {this.state.editNewNote && <Redirect to={`/new`}/>}
         {this.state.backToAllNotes && <Redirect to={`/`}/>}
         <button onClick={() => this.setState({backToAllNotes: true})}>View all notes</button><br/>
-        <h3>{(this.state.new || this.state.editTitle) ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <>{this.state.title} <span onClick={() => this.setState({editTitle: true})}>✍</span></>}</h3>
+        <h3>{(this.state.new || this.state.editTitle) ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <>{this.state.title} <span className="clickable" onClick={() => this.setState({editTitle: true})}>✍</span></>}</h3>
         <ReactQuill value={this.state.contents} onChange={this.handleContentsChange} /><br/>
         {this.state.new ? <input type="submit" value="Create new note" onClick={() => this.newNote()}/> : <><input type="submit" value="Edit note" onClick={() => this.editNote()}/> <input type="submit" value="Delete note" onClick={() => this.deleteNote(this.state.id)}/></>}
       </section>

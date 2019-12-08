@@ -31,6 +31,10 @@ hr {
   border-radius: 1rem;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .link {
   float: right;
   cursor: pointer;
