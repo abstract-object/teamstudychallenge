@@ -17,7 +17,7 @@ class Note extends Component {
     return (
       <article className="note-list-item">
         <h4>{this.props.title}</h4>
-        <span className="link" onClick={() => this.viewNote(this.props.id)}>View</span>
+        <button className="right" onClick={() => this.viewNote(this.props.id)}>View</button>
         {this.state.redirect && <Redirect to={`/notes/${this.state.redirect}`} />}
       </article>
     );

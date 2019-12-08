@@ -17,6 +17,15 @@ hr {
   color: lightblue;
 }
 
+button {
+  background-color: transparent;
+  border-radius: 0.35rem;
+  border-color: grey;
+  color: grey;
+  padding: 0.5rem;
+  box-shadow: none;
+}
+
 .main-container {
   padding-top: 1rem;
   width: 90%;
@@ -35,6 +44,9 @@ hr {
   cursor: pointer;
 }
 
+.right {
+  float: right;
+}
 .link {
   float: right;
   cursor: pointer;
