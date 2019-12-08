@@ -20,6 +20,7 @@ class ViewNote extends Component {
       contents: "Start typing here!",
       readOnly: false,
       new: false,
+      editTitle: false,
       editNewNote: false,
       backToAllNotes: false
     };
@@ -87,9 +88,8 @@ class ViewNote extends Component {
         {this.state.editNewNote && <Redirect to={`/new`}/>}
         {this.state.backToAllNotes && <Redirect to={`/`}/>}
         <button onClick={() => this.setState({backToAllNotes: true})}>View all notes</button><br/>
-        {this.state.new ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <h3>{this.state.title}</h3>}
-        <ReactQuill value={this.state.contents} readOnly={this.state.readOnly}
-                  onChange={this.handleContentsChange} />
+        {(this.state.new || this.state.editTitle) ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <><h3>{this.state.title} <span onClick={() => this.setState({editTitle: true})}>✍</span></h3></>}
+        <ReactQuill value={this.state.contents} onChange={this.handleContentsChange} />
         {this.state.new ? <input type="submit" value="Create new note" onClick={() => this.newNote()}/> : <><input type="submit" value="Edit note" onClick={() => this.editNote()}/> <input type="submit" value="Delete note" onClick={() => this.deleteNote(this.state.id)}/></>}
       </>
     );
