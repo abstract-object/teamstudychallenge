@@ -20,6 +20,13 @@ const addNote = (title, contents) => {
   }
 };
 
+const modifyNote = (id, title, contents) => {
+  notes[id] = {
+    title: title,
+    contents: contents
+  }
+};
+
 app.get("/notes", (req, res) => {
   let listOfNotes = {};
   for (let note of Object.keys(notes)) {
@@ -34,9 +41,23 @@ app.get("/notes/:noteId", (req, res) => {
 });
 
 app.post("/notes", (req, res) => {
-  let newNote = JSON.parse(Object.keys(req.body)[0])
+  let newNote = JSON.parse(Object.keys(req.body)[0]);
   addNote(newNote.title, newNote.contents);
   res.sendStatus(200);
+});
+
+app.put("/notes/:noteId", (req, res) => {
+  let modifiedNote = JSON.parse(Object.keys(req.body)[0]);
+  modifyNote(req.params.noteId, modifiedNote.title, modifiedNote.contents);
+  res.sendStatus(200);
+});
+
+app.delete("/notes/:noteId", (req, res) => {
+  if (notes[req.params.noteId]) {
+    delete notes[req.params.noteId];
+    return res.sendStatus(200);
+  }
+  res.sendStatus(400);
 })
 
 app.listen(PORT, () => {
