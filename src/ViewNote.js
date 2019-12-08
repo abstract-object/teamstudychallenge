@@ -19,7 +19,8 @@ class ViewNote extends Component {
       contents: "Start typing here!",
       readOnly: false,
       new: false,
-      redirect: false
+      editNewNote: false,
+      backToAllNotes: false
     };
   };
 
@@ -49,8 +50,10 @@ class ViewNote extends Component {
           if (!res.data.error) {
             this.setState({ title: res.data.note.title, contents: res.data.note.contents, readOnly: true})
           } else {
-            this.setState({redirect: true, new: true});
+            this.setState({editNewNote: true, new: true, readOnly: false});
           }
+        }).catch(error => {
+          this.setState({editNewNote: true, new: true, readOnly: false});
         })
     } else {
       this.setState({new: true, readOnly: false});
@@ -60,7 +63,9 @@ class ViewNote extends Component {
   render() {
     return (
       <article>
-        {this.state.redirect && <Redirect to={`/new`}/>}
+        {this.state.editNewNote && <Redirect to={`/new`}/>}
+        {this.state.backToAllNotes && <Redirect to={`/`}/>}
+        <button onClick={() => this.setState({backToAllNotes: true})}>View all notes</button><br/>
         {this.state.new ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <h3>{this.state.title}</h3>}
         <ReactQuill value={this.state.contents} readOnly={this.state.readOnly}
                   onChange={this.handleContentsChange} />

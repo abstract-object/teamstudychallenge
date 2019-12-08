@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from 'react-router-dom';
 
 import Note from "./Note";
 import axios from "axios";
@@ -9,7 +10,8 @@ class AllNotes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: {}
+      notes: {},
+      new: false
     };
   };
 
@@ -22,6 +24,8 @@ class AllNotes extends Component {
 
   render() {
     return (<div>
+      {this.state.new && <Redirect to={`/new`}/>}
+      <button onClick={() => this.setState({new: true})}>New note</button>
       <h3>All notes</h3>
       {Object.keys(this.state.notes).map(id => {
         return (
