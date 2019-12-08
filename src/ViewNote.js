@@ -15,6 +15,7 @@ class ViewNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       title: "New note",
       contents: "Start typing here!",
       readOnly: false,
@@ -37,18 +38,38 @@ class ViewNote extends Component {
       title: this.state.title,
       contents: this.state.contents
     }), axiosConfig)
-    .then(function (response) {
-      console.log(response);
+    .then(res => {
+      console.log(res);
+      this.setState({backToAllNotes: true});
     });
-  }
+  };
+
+  editNote = () => {
+    axios.put(`${server}/notes/${this.state.id}`, JSON.stringify({
+      title: this.state.title,
+      contents: this.state.contents
+    }), axiosConfig)
+    .then(res => {
+      console.log(res);
+      this.setState({backToAllNotes: true});
+    });
+  };
+
+  deleteNote = () => {
+    axios.delete(`${server}/notes/${this.state.id}`)
+    .then(res => {
+      console.log(res);
+      this.setState({backToAllNotes: true});
+    });
+  };
 
   componentDidMount() {
     if (!this.props.new) {
-      const { match: { params } } = this.props;
+      const {match: {params}} = this.props;
       axios.get(`${server}/notes/${params.noteId}`)
         .then(res => {
           if (!res.data.error) {
-            this.setState({ title: res.data.note.title, contents: res.data.note.contents, readOnly: true})
+            this.setState({id: params.noteId, title: res.data.note.title, contents: res.data.note.contents, readOnly: true})
           } else {
             this.setState({editNewNote: true, new: true, readOnly: false});
           }
@@ -62,15 +83,15 @@ class ViewNote extends Component {
 
   render() {
     return (
-      <article>
+      <>
         {this.state.editNewNote && <Redirect to={`/new`}/>}
         {this.state.backToAllNotes && <Redirect to={`/`}/>}
         <button onClick={() => this.setState({backToAllNotes: true})}>View all notes</button><br/>
         {this.state.new ? <input type="text" value={this.state.title} onChange={this.handleTitleChange} /> : <h3>{this.state.title}</h3>}
         <ReactQuill value={this.state.contents} readOnly={this.state.readOnly}
                   onChange={this.handleContentsChange} />
-        {this.state.new && <input type="submit" value="Create new note" onClick={() => this.newNote()}/>}
-      </article>
+        {this.state.new ? <input type="submit" value="Create new note" onClick={() => this.newNote()}/> : <><input type="submit" value="Edit note" onClick={() => this.editNote()}/> <input type="submit" value="Delete note" onClick={() => this.deleteNote(this.state.id)}/></>}
+      </>
     );
   }
 };

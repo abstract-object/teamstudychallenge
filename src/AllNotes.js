@@ -27,7 +27,7 @@ class AllNotes extends Component {
       {this.state.new && <Redirect to={`/new`}/>}
       <button onClick={() => this.setState({new: true})}>New note</button>
       <h3>All notes</h3>
-      {Object.keys(this.state.notes).map(id => {
+      {Object.keys(this.state.notes).reverse().map(id => {
         return (
           <Note key={id} id={id} title={this.state.notes[id]}/>
         );
